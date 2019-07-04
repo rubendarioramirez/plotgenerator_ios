@@ -10,6 +10,7 @@ import UIKit
 import SWRevealViewController
 import IQKeyboardManagerSwift
 import Firebase
+import GoogleSignIn
 import GoogleMobileAds
 
 
@@ -28,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GADRewardBasedVideoAdDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         GADMobileAds.configure(withApplicationID: "ca-app-pub-6696437403163667~6953226633")
         rewardBasedVideo = GADRewardBasedVideoAd.sharedInstance()
         rewardBasedVideo?.delegate = self
@@ -35,11 +37,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GADRewardBasedVideoAdDele
         
         IQKeyboardManager.shared.enable = true
         FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
         silentLogin()
         
         
         return true
     }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url,
+                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                     annotation: [:])
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    
+    
     @objc func loadRewardAds() {
 
         if !adRequestInProgress && rewardBasedVideo?.isReady == false {

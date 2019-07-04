@@ -87,7 +87,7 @@ extension SideBarVC:UITableViewDataSource,UITableViewDelegate{
         else if indexPath.row == 2{
           newFrontController = storyboard?.instantiateViewController(withIdentifier: "HeroJourneyVC") as! HeroJourneyVC
         }else if indexPath.row == 3{
-            newFrontController = storyboard?.instantiateViewController(withIdentifier: "WeeklyChallengeVC") as! WeeklyChallengeVC
+            newFrontController = storyboard?.instantiateViewController(withIdentifier: "WeeklyWrittingContainer") as! WeeklyWrittingContainer
         }
         let navigation = UINavigationController(rootViewController: newFrontController!)
         navigation.isNavigationBarHidden = true

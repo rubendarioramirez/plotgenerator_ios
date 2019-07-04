@@ -25,6 +25,6 @@ class ShowQuestModel : Codable{
         self.bioId = bioId
         self.projectid = projectid
         self.challengeId = challengeId
-    }
+      }
     
 }

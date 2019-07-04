@@ -10,45 +10,27 @@ import GoogleMobileAds
 var activityIndicator : NVActivityIndicatorView! //used variable for intialising object for NVActivityIndicatorView
 var customAppColor = UIColor(red: 57.0/255.0, green: 149.0/255.0, blue: 111.0/255.0, alpha: 1)
 
-
-
-
 extension UIViewController:NVActivityIndicatorViewable,GADBannerViewDelegate {
-    
-  /*  func adsView(adsBannerView:GADBannerView){
-        adsBannerView.adUnitID=bannerAdUnit
-        adsBannerView.delegate = self
-        adsBannerView.rootViewController=self
-        adsBannerView.load(GADRequest())
-        self.view.bringSubview(toFront: adsBannerView)
-    }
-    
-    public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        //adBannerView.isHidden = false
-        print("yes i am loaded")
-        
-        NotificationCenter.default.post(name: Notification.Name("isloaded"), object: nil)
-    }
-    public func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("yes i am not loaded")
-        // adBannerView.isHidden = true
-    }*/
     
     //Show screen Loader while loading data on screen
     func showactivityIndicator() {
         _ = CGSize(width:50, height: 50)
       //  startAnimating(size, message: "", messageFont: UIFont.systemFont(ofSize: 18), type: NVActivityIndicatorType.circleStrokeSpin, color: customAppColor, padding: nil, displayTimeThreshold: nil, minimumDisplayTime: nil, backgroundColor: UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0), textColor: .black)
         
-        let xAxis = self.view.center.x
-        let yAxis = self.view.center.y
-        let frame = CGRect(x: (xAxis - 30), y: (yAxis - 30), width: 45, height: 45)
-        activityIndicator = NVActivityIndicatorView(frame: frame)
-        activityIndicator.type = .circleStrokeSpin
-        activityIndicator.color = customAppColor
-        self.view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
         
+        if let window = UIApplication.shared.keyWindow {
+            // Do stuff
+            let xAxis = window.center.x
+            let yAxis = window.center.y
+            let frame = CGRect(x: (xAxis - 30), y: (yAxis - 30), width: 45, height: 45)
+            activityIndicator = NVActivityIndicatorView(frame: frame)
+            activityIndicator.type = .circleStrokeSpin
+            activityIndicator.color = customAppColor
+            window.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+        }
         
+       
         
     }
     
@@ -74,7 +56,11 @@ extension UIViewController:NVActivityIndicatorViewable,GADBannerViewDelegate {
     {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    func popWithSwipe() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToHomeSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+    }
     
     @objc func respondToHomeSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
@@ -93,8 +79,6 @@ extension UIViewController:NVActivityIndicatorViewable,GADBannerViewDelegate {
             }
         }
     }
-    
-    
 }
 
 
@@ -171,4 +155,42 @@ extension UIDevice {
         }
     }
 }
+extension UIScrollView {
+    func setCurrentPage(position: Int) {
+        var frame = self.frame;
+        frame.origin.x = frame.size.width * CGFloat(position)
+        scrollRectToVisible(frame, animated: true)
+    }
+    var currentPage:CGFloat{
+        return CGFloat((self.contentOffset.x)/self.frame.width)
+    }
+}
+//extension UITableViewCell{
+//    override open var frame: CGRect {
+//        get {
+//            return super.frame
+//        }
+//        set (newFrame) {
+//            var frame =  newFrame
+//            frame.origin.y += 10
+//            frame.origin.x += 10
+//            frame.size.height -= 15
+//            frame.size.width -= 2 * 10
+//            super.frame = frame
+//        }
+//    }
+//}
+
+extension String {
+    func height(constraintedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let label =  UILabel(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.text = self
+        label.font = font
+        label.sizeToFit()
+        
+        return label.frame.height
+    }
+}
+
 

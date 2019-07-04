@@ -8,11 +8,46 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
+import Alamofire
+
+class Connectivity {
+    class func isConnectedToInternet() ->Bool {
+        return NetworkReachabilityManager()!.isReachable
+    }
+}
+
+ typealias completion = (Bool)->()
 
 class UtilityMgr : NSObject{
     
+   
+    
     var index : Int = 0
     static var gender : String = ""
+    
+    static var fireStoreDB: Firestore{
+        get{
+            return Firestore.firestore()
+        }
+    }
+    
+    static var internetString : String{
+        get{
+            return "No internet connection"
+        }
+    }
+    
+    static func LoginUserDecodedDetail()->UserDetailModel{
+        let decoder = JSONDecoder()
+        var loginData = UserDetailModel()
+        if let questionData = UserDefaults.standard.data(forKey: "loginUserDetail"),
+            let data = try? decoder.decode(UserDetailModel.self, from: questionData) {
+            loginData = data
+        }
+        return loginData
+    }
+    
     
     static let topController = UIApplication.topViewController()
     
@@ -138,19 +173,6 @@ class UtilityMgr : NSObject{
     
     static let challengBioTitleArray = ["The elevator challenge:","The Lie Your Character Believes","Backstory","How he looks?","When under pressure"]
     
-    
-    
-    
-//     func bio(gender:String)->String{
-//        if gender == "Male"{
-//            print(index)
-//            print(AddProjectViewModel.shared().createCharacterArray[index].username)
-//            return "\(bioGraphyString)\(maleBiography)"
-//        }else{
-//            print(index)
-//            return "\(bioGraphyString)\(feMaleBiography)"
-//        }
-//    }
     
     
   static func randomNumber(MIN: Int, MAX: Int)-> Int{

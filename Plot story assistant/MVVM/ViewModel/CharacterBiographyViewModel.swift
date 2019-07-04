@@ -15,8 +15,6 @@ class CharacterBiographyViewModel: NSObject {
     var bioGraphyString : String = ""
     var maleBiography : String = ""
     
-    var optionString : String = ""
-    
     func interstitialShow(interstitial:GADInterstitial,topView:UIViewController){
         if interstitial.isReady {
             interstitial.present(fromRootViewController: topView)
@@ -74,8 +72,7 @@ class CharacterBiographyViewModel: NSObject {
                             
                             let regularAnswerString = NSMutableAttributedString(string: "\(DataViewModel.shared().questDataArray[i].Asnwer ?? "")\n", attributes:attrsRegular)
                             
-                            print(DataViewModel.shared().challengeId)
-                        
+                            
                             let boldQuestionString = NSMutableAttributedString(string: "\n\(DataViewModel.shared().questDataArray[i].Question ?? "")", attributes:attrs)
                             
                             combination.append(boldQuestionString)
@@ -134,8 +131,7 @@ class CharacterBiographyViewModel: NSObject {
         maleBiography = "In his mind he wants \(DataViewModel.shared().createCharacterArray[index].desire ?? "")\nBut is that what he really wants? Or he actually needs \(DataViewModel.shared().createCharacterArray[index].desire1 ?? "")\nAbout his childhood we know that he \(DataViewModel.shared().createCharacterArray[index].defmoment ?? "")\nAlso his friends says that he is \(DataViewModel.shared().createCharacterArray[index].trait ?? ""), \(DataViewModel.shared().createCharacterArray[index].trait1 ?? ""), \(DataViewModel.shared().createCharacterArray[index].trait2 ?? "")\n\nA phrase that people will commonly associate with him is \(DataViewModel.shared().createCharacterArray[index].catchphrase ?? "")\n\nNotes\n\(DataViewModel.shared().createCharacterArray[index].notes ?? "")\n"
         
         feMaleBiography = "In her mind she wants \(DataViewModel.shared().createCharacterArray[index].desire ?? "")\nBut is that what she really wants? Or she actually needs \(DataViewModel.shared().createCharacterArray[index].desire1 ?? "")\nAbout her childhood we know that she \(DataViewModel.shared().createCharacterArray[index].defmoment ?? "")\nAlso her friends says that she is \(DataViewModel.shared().createCharacterArray[index].trait ?? ""), \(DataViewModel.shared().createCharacterArray[index].trait1 ?? ""), \(DataViewModel.shared().createCharacterArray[index].trait2 ?? "")\n\nA phrase that people will commonly associate with her is \(DataViewModel.shared().createCharacterArray[index].catchphrase ?? "")\n\nNotes\n\(DataViewModel.shared().createCharacterArray[index].notes ?? "")\n"
-        
-    }
     
+    }
     
 }

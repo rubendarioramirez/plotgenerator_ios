@@ -9,6 +9,7 @@
 import UIKit
 import SQLite3
 import GoogleMobileAds
+import Firebase
 
 class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,AdsBannerDelegate {
     
@@ -18,6 +19,8 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     @IBOutlet weak var adsBannerView: GADBannerView!
     @IBOutlet weak var tblView: UITableView!
     var db: OpaquePointer?
+    
+ //Google   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +64,15 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     @IBAction func btnAddProjectAction(_ sender: Any) {
+        
+       
+        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddProjectVC") as! AddProjectVC
          vc.isEdit = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
+   
+   
     
     
     override func didReceiveMemoryWarning() {

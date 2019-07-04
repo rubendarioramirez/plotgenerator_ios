@@ -12,8 +12,12 @@ pod 'Kingfisher', '~> 4.6.4’
 pod 'IQKeyboardManagerSwift'
 pod 'SWRevealViewController'
 pod 'Firebase/Core'
+pod 'Firebase/Firestore'
 pod 'Firebase/Database'
 pod 'NVActivityIndicatorView'
 pod 'Google-Mobile-Ads-SDK'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn'
+
 
 end
